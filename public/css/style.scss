@@ -1,0 +1,84 @@
+// bower:scss
+// endbower
+@import url(https://fonts.googleapis.com/css?family=Teko:300);
+@import url(https://fonts.googleapis.com/css?family=Roboto+Condensed:300,400);
+*{ box-sizing: border-box; }
+
+body{
+	background: #253841;
+}
+
+.box{
+	padding: 2.5em;
+	display: inline-block;
+	h1{
+		font-family: 'Teko', sans-serif;
+		font-weight: normal;
+		font-size: 50px;
+		text-transform: uppercase;
+		margin-left: 0.3em;
+		color: rgba(255,255,255,.9);
+	}
+}
+
+.activities{
+	border-top: 4px solid rgba(255,255,255,.9);
+	transition: width 0.5s ease;
+	padding-top: 1em;
+	padding-right: 5vw;
+	.activity{
+		display: flex;
+		font-family: 'Roboto Condensed', sans-serif;
+		text-transform: uppercase;
+		margin-bottom: 0.8em;
+		opacity: 0;
+		align-items: center;
+		.icon{
+			margin-right: 10px;
+			opacity: 0.6;
+			width: auto;
+			height: auto;
+			max-height: 28px;
+			max-width: 28px;
+		}
+		.label{
+			font-size: 11px;
+			font-weight: 300;
+			color: rgba(255,255,255,.6);
+		}
+		.data{
+			font-size: 17px;
+			font-weight: 400;
+			transform: scale(0.75, 1);
+			transform-origin: 0;
+			-ms-transform: scale(0.75, 1);
+			-ms-transform-origin: 0;
+			color: rgba(255,255,255,.9);
+		}
+	}
+	a{
+		text-decoration: none;
+		&:hover{
+			.icon{
+				opacity: 0.9;
+			}
+		}
+	}
+}
+
+.fadeInLeft{
+	animation-name: fadeInLeft;
+	animation-duration: 1s;
+	animation-fill-mode: both;
+}
+
+@keyframes fadeInLeft {
+   0% {
+      opacity: 0;
+      transform: translateX(-20px);
+   }
+   100% {
+      opacity: 1;
+      transform: translateX(0);
+   }
+}
