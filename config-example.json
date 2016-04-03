@@ -1,3 +1,17 @@
 {
-
+	"lastfm": {
+		"username": "",
+		"apikey": ""
+	},
+	"steam":{
+		"username": ""
+	},
+	"netflix":{
+		"username": "",
+		"password": ""
+	},
+	"github": {
+		"username": "",
+		"accesstoken": ""
+	}
 }

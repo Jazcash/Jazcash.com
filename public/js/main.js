@@ -1,38 +1,30 @@
 $(document).ready(function(){
 
-	var handlers = [
-		function(i){
-			$.post('/lastfm', function(data) {
-				$this = $(".music");
-				$this.find(".label").text(data.nowPlaying ? "Currently listening to" : "Last listened to");
-				$this.find(".data").text(data.artist + " - " + data.title);
-				$this.addClass("fadeInLeft");
-			});
-		},
-		function(i){
-			$.post("/steam", function(data){
-				$this = $(".game");
-				$this.find(".label").text(data.isPlaying ? "Currently playing" : "Last played");
-				$this.find(".data").text(data.game);
-				$this.addClass("fadeInLeft").css("animation-delay", (i * 0.25) + "s");
-			});
-		},
-		function(i){
-			$.post("/netflix", function(data){
-				$this = $(".tv");
-				$this.find(".data").text(data.fulltitle);
-				$this.addClass("fadeInLeft").css("animation-delay", (i * 0.25) + "s");
-			});
-		}
-	];
+	function requestData(){
+		$.post('/fetchdata', function(data) {
+			$music = $(".music");
+			$music.find(".label").text(data.lastfm.nowPlaying ? "Currently listening to" : "Last listened to");
+			$music.find(".data").text(data.lastfm.artist + " - " + data.lastfm.title);
+			$music.addClass("fadeInLeft");
+
+			$game = $(".game");
+			$game.find(".label").text(data.steam.isPlaying ? "Currently playing" : "Last played");
+			$game.find(".data").text(data.steam.game);
+			$game.addClass("fadeInLeft").css("animation-delay", (1 * 0.25) + "s");
+
+			$netflix = $(".tv");
+			$netflix.find(".data").text(data.netflix.fulltitle);
+			$netflix.addClass("fadeInLeft").css("animation-delay", (2 * 0.25) + "s");
+
+			$github = $(".github");
+			$github.find(".data").text(data.github.commits[0].message + " on " + data.github.repo.name.split("/")[1]);
+			$github.addClass("fadeInLeft").css("animation-delay", (3 * 0.25) + "s");
+		});
+	}
 
 	requestData();
 	setInterval(requestData, 5000);
 
-	function requestData(){
-		for (let i in handlers){
-			handlers[i](i);
-		}
-	}
+	particlesJS.load('particles-js', 'particles.json');
 
 });
