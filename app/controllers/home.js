@@ -126,7 +126,7 @@ for (var key in handlers){
 
 setInterval(function(){
 	handlers.lastfm();
-}, 10000);
+}, 15000);
 
 setInterval(function(){
 	handlers.netflix();
