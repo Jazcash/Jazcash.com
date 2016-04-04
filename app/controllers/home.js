@@ -83,9 +83,10 @@ var handlers = {
 			request(url, {headers: {'User-Agent': "NodeJS"}}, function(error, response, body){
 			    if (!error && response.statusCode == 200) {
 			        var $ = cheerio.load(body);
+			        var isPlaying = $(".profile_in_game_name").length > 0;
 			        data.steam = {
-			        	game: $(".game_name a:first-child").eq(0).text(),
-			        	isPlaying: $(".profile_in_game_name").length > 0
+			        	game: isPlaying ? $(".profile_in_game_name").eq(0).text() : $(".game_name a:first-child").eq(0).text(),
+			        	isPlaying: isPlaying
 			        };
 			        console.log("Steam fetch successful");
 			    }
