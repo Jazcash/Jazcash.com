@@ -61,6 +61,8 @@ var handlers = {
 			            var cookies = response.headers['set-cookie'];
 			            request({url: "https://www.netflix.com/WiViewingActivity", headers: {'Cookie': cookies, 'User-Agent': "NodeJS"}}, function(error, response, body){
 			                var $ = cheerio.load(body);
+			                var wasSuccessful = $(".seriestitle").length > 0;
+			                if (!wasSuccessful) return;
 			                data.netflix = {
 			                	title: $(".seriestitle").eq(0).text(),
 			                	fulltitle: $(".title").eq(0).text()
@@ -108,7 +110,8 @@ var handlers = {
 			        	repo: githubdata.repo,
 			        	commits: githubdata.payload.commits,
 			        	public: githubdata.public,
-			        	time: githubdata["created_at"]
+			        	time: githubdata["created_at"],
+			        	repourl: githubdata.repo.url
 			        };
 			        console.log("Github fetch successful");
 			    }
@@ -127,19 +130,19 @@ for (var key in handlers){
 
 setInterval(function(){
 	handlers.lastfm();
-}, 15000);
+}, 15000); // 15 seconds
 
 setInterval(function(){
 	handlers.netflix();
-}, 1800000);
+}, 1800000); // 30 minutes
 
 setInterval(function(){
 	handlers.steam();
-}, 300000);
+}, 180000); // 3 minutes
 
 setInterval(function(){
 	handlers.github();
-}, 300000);
+}, 300000); // 5 minutes
 
 module.exports = function(app) {
 	app.use("/", router);
